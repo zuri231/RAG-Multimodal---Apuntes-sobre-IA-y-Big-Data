@@ -208,7 +208,6 @@ Sigue estos pasos para desplegar el entorno de desarrollo local y ejecutar el as
    LLM_MODEL_GROQ="llama-3.3-70b-versatile"
 
    # --- RUTAS DE DATOS (PATHS) ---
-   # Nota: Asegúrate de que DB_PATH coincida con la carpeta generada
    DB_PATH="./chroma_db_multimodal(casa_llava_qwen)buena_spanish"
    DATA_PATH_IMAGENES="./data/imagenes"
    DATA_PATH_PDFS="./data/pdfs"
