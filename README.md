@@ -123,36 +123,35 @@ Se han seleccionado modelos específicos tras realizar benchmarks de rendimiento
 El proyecto sigue una estructura modular rigurosa, separando claramente la lógica de ingestión de datos (ETL), el backend de inferencia, la interfaz de usuario y los módulos de validación científica.
 
 RAG_MULTIMODAL/
-├── chroma_db_multimodal(...)/   # Persistencia de Vectores (Base de Datos Vectorial)
-├── data/                        # Dataset Origen (Input)
-│   ├── imagenes/                # Diapositivas, diagramas y esquemas (.png, .jpg)
-│   └── pdfs/                    # Apuntes técnicos y documentación (.pdf)
-├── img/                         # Assets estáticos de la UI (logos, avatares)
-├── src/                         # Código Fuente Principal
-│   ├── config.py                # Configuración global y gestión de variables de entorno
-│   │
+├── chroma_db_multimodal/      # Base de Datos Vectorial (Persistencia)
+├── data/
+│   ├── imagenes/              # Dataset Imágenes (.png, .jpg)
+│   └── pdfs/                  # Dataset PDFs (Apuntes)
+├── img/                       # Logos y avatares UI
+├── src/
+│   ├── config.py              # Configuración Global
 │   ├── api/
-│   │   └── api.py               # Backend FastAPI: Núcleo lógico del RAG y Endpoints
+│   │   └── api.py             # Backend FastAPI (Lógica RAG)
 │   ├── app/
-│   │   └── app.py               # Frontend Streamlit: Interfaz de Chat y Gestión de Estado
+│   │   └── app.py             # Frontend Streamlit (Chat UI)
 │   │
-│   │   # --- PIPELINE DE INGESTA (ETL) ---
-│   ├── 01_multimodal_ingest_smart.py  # Procesamiento de imágenes y embeddings
-│   ├── 02_ingest_pdfs.py              # Procesamiento: Limpieza, Chunking y Vectorización
-│   ├── 03_check_chroma_content.py     # Diagnóstico para inspeccionar la DB
+│   │   # --- INGESTA (ETL) ---
+│   ├── 01_multimodal_ingest.py # Procesar Imágenes + Embeddings
+│   ├── 02_ingest_pdfs.py       # Procesar PDFs + Vectorización
+│   ├── 03_check_chroma.py      # Diagnóstico de la DB
 │   │
-│   │   # --- SUITE DE EVALUACIÓN Y BENCHMARKING ---
-│   ├── 04_resultados.py         # Visualización del espacio latente (Proyección t-SNE)
-│   ├── 05_comprobar.py          # A/B Testing: Comparativa de modelos de texto
-│   ├── 05_comprobar_imagenes.py # A/B: Impacto idioma en recuperación visual
-│   ├── 06_buscar_imagen.py      # Depuración para búsqueda visual inversa
-│   ├── 07_eval_retrieval.py     # Cálculo de métricas de recuperación (Hit Rate)
-│   ├── 08_ragas.py              # Evaluación de respuestas con RAGAS
-│   └── 09_evaluar_metricas.py   # Benchmark (Chunk Size vs Reranking)
+│   │   # --- EVALUACIÓN ---
+│   ├── 04_resultados.py        # Visualización (t-SNE)
+│   ├── 05_comprobar.py         # Test A/B Texto
+│   ├── 05_comprobar_img.py     # Test A/B Imágenes
+│   ├── 06_buscar_imagen.py     # Debug Búsqueda Visual
+│   ├── 07_eval_retrieval.py    # Métricas Hit Rate
+│   ├── 08_ragas.py             # Eval Semántica RAGAS
+│   └── 09_evaluar_metricas.py  # Benchmark Arquitectura
 │
-├── .env                         # Credenciales y claves API (No incluido en repo)
-├── requirements.txt             # Lista de dependencias y versiones
-└── README.md                    # Documentación técnica del proyecto
+├── .env                        # Claves API (No subir a git)
+├── requirements.txt            # Dependencias
+└── README.md                   # Documentación
 
 ### **4.1. Descripción de Módulos Clave**
 
