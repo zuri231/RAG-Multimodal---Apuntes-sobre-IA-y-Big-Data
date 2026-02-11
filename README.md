@@ -346,8 +346,8 @@ Este proyecto ha sido desarrollado como parte del RETO 2 de la Especialización 
 
 ### 👥 Autores
 
-4. **Zuriñe Colino** \- *Analista de Datos & IA*  
-5. **Aritz Monje** \- *Analista de Datos & IA*
+* **Zuriñe Colino** \- *Analista de Datos & IA*
+* **Aritz Monje** \- *Analista de Datos & IA*
 
 ### 📄 Licencia
 
