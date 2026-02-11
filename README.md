@@ -153,7 +153,7 @@ RAG_MULTIMODAL/
 ├── .env                        # Claves API
 ├── requirements.txt            # Dependencias
 └── README.md                   # Documentación
-
+```
 ### **4.1. Descripción de Módulos Clave**
 
 * **`src/api/api.py` (Backend):** Es el orquestador del sistema. Recibe la consulta del usuario, ejecuta la reescritura de la pregunta, lanza la búsqueda híbrida en ChromaDB y BM25, aplica el reranking con Cross-Encoders y gestiona el streaming de la respuesta generada por el LLM.  
