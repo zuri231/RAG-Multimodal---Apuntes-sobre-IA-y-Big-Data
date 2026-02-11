@@ -40,7 +40,9 @@ El sistema se basa en una arquitectura de servicios desacoplada, donde el fronte
 
 ### **2.1. Diagrama del Flujo de Datos**
 
-### ![Esquema de Arquitectura](img/esquema.png)
+<p align="center">
+  <img src="img/esquema.png" alt="Esquema de Arquitectura" width="50%">
+</p>
 
 ### **2.2. Componentes del Pipeline**
 
