@@ -191,18 +191,37 @@ Sigue estos pasos para desplegar el entorno de desarrollo local y ejecutar el as
      
    pip install \-r requirements.txt  
      
-4. **Variables de Entorno (.env):** Crea un archivo `.env` en la raíz del proyecto y configura tus claves API. Es fundamental para el acceso a los modelos LLM.
-```text
-   # Configuración del LLM (Groq / OpenRouter / OpenAI)  
-        LLM\_PROVIDER="groq"  
-        GROQ\_API\_KEY="gsk\_..."  
-        OPENROUTER\_API\_KEY="sk-or-..."  
-   # Configuración de Rutas y Red  
-        API\_HOST="127.0.0.1"  
-        API\_PORT="8000"  
-        DATA\_PATH\_IMAGENES="./data/imagenes"  
-        DATA\_PATH\_PDFS="./data/pdfs"  
-        DB\_PATH="./chroma\_db\_multimodal"
+4. **Variables de Entorno (.env):**
+   Crea un archivo `.env` en la raíz del proyecto y configura tus claves API. Usa la siguiente plantilla basada en la configuración actual:
+
+```ini
+   # --- API KEYS (Requerido) ---
+   OPENROUTER_API_KEY="sk-or-..."
+   GROQ_API_KEY="gsk_..."
+
+   # --- CONFIGURACIÓN LLM (Cerebro) ---
+   # Opciones: 'groq' o 'openrouter'
+   LLM_PROVIDER="groq"
+   
+   # Modelos Específicos
+   LLM_MODEL_OPENROUTER="deepseek/deepseek-r1:free"
+   LLM_MODEL_GROQ="llama-3.3-70b-versatile"
+
+   # --- RUTAS DE DATOS (PATHS) ---
+   # Nota: Asegúrate de que DB_PATH coincida con la carpeta generada
+   DB_PATH="./chroma_db_multimodal(casa_llava_qwen)buena_spanish"
+   DATA_PATH_IMAGENES="./data/imagenes"
+   DATA_PATH_PDFS="./data/pdfs"
+
+   # --- MODELOS LOCALES (Embeddings & Reranker) ---
+   MODEL_EMBEDDING_TEXT="Qwen/Qwen3-Embedding-0.6B"
+   MODEL_EMBEDDING_IMAGE="clip-ViT-B-32"
+   MODEL_RERANKER="BAAI/bge-reranker-v2-m3"
+
+   # --- PARÁMETROS TÉCNICOS ---
+   API_HOST="127.0.0.1"
+   API_PORT="8000"
+   UMBRAL_RERANKER="0.0"
 ```
 
 ### 5.3. Ejecución del Sistema
