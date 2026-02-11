@@ -4,9 +4,9 @@
 
 ## **1\. Descripción del Proyecto**
 
-Este repositorio contiene la implementación completa de un asistente virtual técnico diseñado para resolver el problema de la fragmentación de la información en el entorno universitario. El sistema permite a los estudiantes interactuar en lenguaje natural con una base de conocimiento curada, compuesta por apuntes técnicos (PDFs), diagramas de arquitectura y diapositivas de clase (Imágenes).
+Este repositorio contiene la implementación completa de un asistente virtual técnico, diseñado para resolver la fragmentación y dispersión de la información habitual en el entorno educativo. Con frecuencia, el material de estudio se encuentra segregado en plataformas educativas, distribuido en múltiples carpetas, PDFs extensos y diapositivas sueltas, lo que obliga al alumno a abrir y buscar manualmente en docenas de archivos para encontrar un concepto específico. Este sistema centraliza y unifica todos estos recursos (apuntes técnicos e imágenes) en una única base de conocimiento, permitiendo a los estudiantes interactuar en lenguaje natural y obtener respuestas precisas sin necesidad de navegar por la compleja estructura de archivos original.
 
-A diferencia de los LLMs generalistas (como ChatGPT), este sistema opera bajo un esquema de **Dominio Cerrado**: las respuestas se generan exclusivamente a partir de la documentación indexada, eliminando las alucinaciones y garantizando la trazabilidad de la información mediante citas explícitas a las fuentes.
+A diferencia de los LLMs generales, este sistema opera bajo un esquema de **Dominio Cerrado**: las respuestas se generan exclusivamente a partir de la documentación indexada, eliminando las alucinaciones y garantizando la trazabilidad de la información mediante citas explícitas a las fuentes.
 
 La solución integra un pipeline avanzado de **Búsqueda Híbrida** (Semántica \+ Palabras Clave) y un sistema de **Reordenamiento (Reranking)**, optimizado específicamente para el idioma español y terminología técnica de Ingeniería de Datos.
 
@@ -23,18 +23,18 @@ En asignaturas técnicas como *Big Data* o *Inteligencia Artificial*, el materia
 
 ### **1.2. Objetivos Principales**
 
-* **Centralización del Conocimiento:** Unificar fuentes heterogéneas en una única base de datos vectorial consultable (ChromaDB).  
+* **Centralización del Conocimiento:** Unificar fuentes en una única base de datos vectorial consultable (ChromaDB).  
 * **Precisión Técnica (Zero-Hallucination):** Implementar *Guardrails* estrictos en el prompt del sistema para restringir las respuestas únicamente al contexto recuperado.  
 * **Soporte Multimodal Real:** Utilizar modelos de visión (VLM) para generar descripciones ricas de imágenes educativas, permitiendo su recuperación mediante consultas textuales.  
 * **Adaptabilidad de Interfaz:** Proveer una experiencia de usuario diferenciada mediante dos arquetipos de asistente:  
   * *Perfil Técnico (ArIA):* Respuestas concisas, código y logs.  
   * *Perfil Docente (LexIA):* Explicaciones pedagógicas y didácticas.  
-* **Evaluación Científica:** Medir el rendimiento del sistema mediante métricas objetivas (Hit Rate, MRR, RAGAS) para validar la elección de modelos de embeddings.  
+* **Evaluación:** Medir el rendimiento del sistema mediante métricas objetivas (Hit Rate, MRR, RAGAS) para validar la elección de modelos de embeddings.  
   ---
 
   ## **2\. Arquitectura Técnica**
 
-El sistema se basa en una arquitectura de microservicios desacoplada, donde el frontend (Streamlit) se comunica con el núcleo lógico (FastAPI) mediante peticiones REST. El pipeline RAG implementado sigue un enfoque **híbrido y multimodal**.
+El sistema se basa en una arquitectura de servicios desacoplada, donde el frontend (Streamlit) se comunica con el núcleo (FastAPI) mediante peticiones REST. El pipeline RAG implementado sigue un enfoque **híbrido y multimodal**.
 
 ### 
 
@@ -49,10 +49,10 @@ El sistema se basa en una arquitectura de microservicios desacoplada, donde el f
 Antes de la ejecución, los datos no estructurados se procesan y almacenan:
 
 1. **Procesamiento de Texto (PDFs):** Se extrae el contenido textual, se limpia y se fragmenta (*chunking*) en ventanas de contexto optimizadas (1000 tokens con solapamiento).  
-2. **Procesamiento de Imágenes:** Se utiliza un **Modelo de Visión-Lenguaje (VLM)** (como *LLaVA* o *Phi-3-Vision*) para generar descripciones textuales ricas de cada diagrama o diapositiva.  
+2. **Procesamiento de Imágenes:** Se utiliza un **Modelo de Visión-Lenguaje (VLM)** (*LLaVA*) para generar descripciones textuales ricas de cada diagrama o diapositiva.  
 3. **Vectorización Dual:**  
    * **Texto:** Se generan embeddings densos utilizando el modelo `Qwen/Qwen3-Embedding-0.6B`.  
-   * **Imágenes:** Se generan embeddings visuales alineados semánticamente utilizando `clip-ViT-B-32`.  
+   * **Imágenes:** Se generan embeddings visuales utilizando `clip-ViT-B-32`.  
 4. **Almacenamiento:** Todo se indexa en **ChromaDB**, manteniendo metadatos críticos (asignatura, página, ruta del archivo).
 
    #### **B. Fase de Inferencia (Online)**
@@ -95,7 +95,7 @@ Se han seleccionado modelos específicos tras realizar benchmarks de rendimiento
 | **Embedding de Imagen** | `clip-ViT-B-32` | Modelo de OpenAI que alinea texto e imagen en el mismo espacio vectorial, crucial para la búsqueda multimodal. |
 | **Reranker** | `BAAI/bge-reranker-v2-m3` | Cross-Encoder que reevalúa la relevancia semántica de los candidatos recuperados. Mejora el Hit Rate significativamente. |
 | **LLM (Inferencia)** | `llama-3.3-70b-versatile` | Ejecutado vía **Groq** (LPU). Seleccionado por su velocidad de inferencia extrema (\>300 tokens/s) y capacidad de razonamiento. |
-| **VLM (Ingesta)** | `llava-phi3` / `moondream` | Modelos de Visión-Lenguaje ejecutados localmente con **Ollama** para generar descripciones densas de las imágenes durante la ingesta. |
+| **VLM (Ingesta)** | `llava-phi3` | Modelo de Visión-Lenguaje ejecutado localmente con **Ollama** para generar descripciones densas de las imágenes durante la ingesta. |
 
 ### 3.3. Decisiones de Arquitectura
 
@@ -122,44 +122,44 @@ Se han seleccionado modelos específicos tras realizar benchmarks de rendimiento
 
 El proyecto sigue una estructura modular rigurosa, separando claramente la lógica de ingestión de datos (ETL), el backend de inferencia, la interfaz de usuario y los módulos de validación científica.
 
-📁 RAG\_MULTIMODAL/  
-├── 📂 chroma\_db\_multimodal(...)/   \# Persistencia de Vectores (Base de Datos Vectorial)  
-├── 📂 data/                        \# Dataset Origen (Input)  
-│   ├── 📂 imagenes/                \# Diapositivas, diagramas y esquemas (.png, .jpg)  
-│   └── 📂 pdfs/                    \# Apuntes técnicos y documentación (.pdf)  
-├── 📂 img/                         \# Assets estáticos de la UI (logos, avatares)  
-├── 📂 src/                         \# Código Fuente Principal  
-│   ├── 📜 config.py                \# Configuración global y gestión de variables de entorno  
-│   │  
-│   ├── 📂 api/  
-│   │   └── 📜 api.py               \# Backend FastAPI: Núcleo lógico del RAG y Endpoints  
-│   ├── 📂 app/  
-│   │   └── 📜 app.py               \# Frontend Streamlit: Interfaz de Chat y Gestión de Estado  
-│   │  
-│   │   \# \--- PIPELINE DE INGESTA (ETL) \---  
-│   ├── 📜 01\_multimodal\_ingest\_smart.py  \# Procesamiento de imágenes y embeddings  
-│   ├── 📜 02\_ingest\_pdfs.py              \# Procesamiento: Limpieza, Chunking etc…rización  
-│   ├── 📜 03\_check\_chroma\_content.py     \# Diagnóstico para inspeccionar la DB  
-│   │  
-│   │   \# \--- SUITE DE EVALUACIÓN Y BENCHMARKING \---  
-│   ├── 📜 04\_resultados.py         \# Visualización del espacio latente (Proyección t-SNE)  
-│   ├── 📜 05\_comprobar.py          \# A/B Testing: Comparativa de modelos de texto  
-│   ├── 📜 05\_comprobar\_imagenes.py \# A/B: Impacto idioma en recuperación visual  
-│   ├── 📜 06\_buscar\_imagen.py      \# Depuración para búsqueda visual inversa  
-│   ├── 📜 07\_eval\_retrieval.py     \# Cálculo de métricas de recuperación (Hit Rate)  
-│   ├── 📜 08\_ragas.py              \# Evaluación de respuestas con RAGAS  
-│   └── 📜 09\_evaluar\_metricas.py   \# (Chunk Size vs Reranking)  
-│  
-├── 📜 .env                         \# Credenciales y claves API (No incluido en repo)  
-├── 📜 requirements.txt             \# Lista de dependencias y versiones  
-└── 📜 README.md                    \# Documentación técnica del proyecto
+RAG_MULTIMODAL/
+├── chroma_db_multimodal(...)/   # Persistencia de Vectores (Base de Datos Vectorial)
+├── data/                        # Dataset Origen (Input)
+│   ├── imagenes/                # Diapositivas, diagramas y esquemas (.png, .jpg)
+│   └── pdfs/                    # Apuntes técnicos y documentación (.pdf)
+├── img/                         # Assets estáticos de la UI (logos, avatares)
+├── src/                         # Código Fuente Principal
+│   ├── config.py                # Configuración global y gestión de variables de entorno
+│   │
+│   ├── api/
+│   │   └── api.py               # Backend FastAPI: Núcleo lógico del RAG y Endpoints
+│   ├── app/
+│   │   └── app.py               # Frontend Streamlit: Interfaz de Chat y Gestión de Estado
+│   │
+│   │   # --- PIPELINE DE INGESTA (ETL) ---
+│   ├── 01_multimodal_ingest_smart.py  # Procesamiento de imágenes y embeddings
+│   ├── 02_ingest_pdfs.py              # Procesamiento: Limpieza, Chunking y Vectorización
+│   ├── 03_check_chroma_content.py     # Diagnóstico para inspeccionar la DB
+│   │
+│   │   # --- SUITE DE EVALUACIÓN Y BENCHMARKING ---
+│   ├── 04_resultados.py         # Visualización del espacio latente (Proyección t-SNE)
+│   ├── 05_comprobar.py          # A/B Testing: Comparativa de modelos de texto
+│   ├── 05_comprobar_imagenes.py # A/B: Impacto idioma en recuperación visual
+│   ├── 06_buscar_imagen.py      # Depuración para búsqueda visual inversa
+│   ├── 07_eval_retrieval.py     # Cálculo de métricas de recuperación (Hit Rate)
+│   ├── 08_ragas.py              # Evaluación de respuestas con RAGAS
+│   └── 09_evaluar_metricas.py   # Benchmark (Chunk Size vs Reranking)
+│
+├── .env                         # Credenciales y claves API (No incluido en repo)
+├── requirements.txt             # Lista de dependencias y versiones
+└── README.md                    # Documentación técnica del proyecto
 
 ### **4.1. Descripción de Módulos Clave**
 
 * **`src/api/api.py` (Backend):** Es el orquestador del sistema. Recibe la consulta del usuario, ejecuta la reescritura de la pregunta, lanza la búsqueda híbrida en ChromaDB y BM25, aplica el reranking con Cross-Encoders y gestiona el streaming de la respuesta generada por el LLM.  
 * **`src/app/app.py` (Frontend):** Gestiona la experiencia de usuario. Controla la sesión, el historial de chat, la renderización de imágenes recuperadas y la lógica de personalidades (ArIA/LexIA) mediante inyección de CSS dinámico.  
 * **`src/01_multimodal_ingest_smart.py`:** Componente crítico de la multimodalidad. Utiliza un modelo de visión local para "ver" y describir textualmente cada imagen del dataset antes de vectorizarla. Esto permite que las imágenes sean recuperables mediante búsquedas semánticas de texto.  
-* **`src/09_evaluar_metricas.py`:** Script científico utilizado para validar la arquitectura. Ejecuta pruebas automatizadas variando parámetros (tamaño de chunk, uso de reranker) para generar las métricas de rendimiento (Hit Rate, MRR, Latencia) presentadas en este documento.
+* **`src/09_evaluar_metricas.py`:** Script utilizado para validar la arquitectura. Ejecuta pruebas automatizadas variando parámetros (tamaño de chunk, uso de reranker) para generar las métricas de rendimiento (Hit Rate, MRR, Latencia) presentadas en este documento.
 
 ## 5\. Instalación y Uso
 
@@ -190,25 +190,15 @@ Sigue estos pasos para desplegar el entorno de desarrollo local y ejecutar el as
    pip install \-r requirements.txt  
      
 4. **Variables de Entorno (.env):** Crea un archivo `.env` en la raíz del proyecto y configura tus claves API. Es fundamental para el acceso a los modelos LLM.  
-     
    \# Configuración del LLM (Groq / OpenRouter / OpenAI)  
-     
    LLM\_PROVIDER="groq"  
-     
    GROQ\_API\_KEY="gsk\_..."  
-     
    OPENROUTER\_API\_KEY="sk-or-..."  
-     
    \# Configuración de Rutas y Red  
-     
    API\_HOST="127.0.0.1"  
-     
    API\_PORT="8000"  
-     
    DATA\_PATH\_IMAGENES="./data/imagenes"  
-     
    DATA\_PATH\_PDFS="./data/pdfs"  
-     
    DB\_PATH="./chroma\_db\_multimodal"
 
 ### 5.3. Ejecución del Sistema
@@ -231,7 +221,7 @@ Para utilizar el asistente, es necesario ejecutar el Backend y el Frontend en **
 
 **Terminal 1: Backend (API)** Inicia el servidor lógico que gestiona la IA y la base de datos.
 
-python src/api/api.py
+uvicorn src.api.api:app --reload
 
 *Esperar hasta ver el mensaje: `[LISTO] Sistema preparado para consultas.`*
 
@@ -243,7 +233,7 @@ Una vez iniciados ambos servicios, la aplicación se abrirá automáticamente en
 
 ## 6\. Evaluación y Métricas
 
-Para garantizar la fiabilidad del asistente en un entorno académico, se ha sometido el sistema a una batería de pruebas rigurosas, evaluando tanto la capacidad de recuperación (Retrieval) como la calidad de la generación (Generation).
+Para garantizar la fiabilidad del asistente en un entorno real, se ha sometido el sistema a una batería de pruebas rigurosas, evaluando tanto la capacidad de recuperación (Retrieval) como la calidad de la generación (Generation).
 
 ### 6.1. Comparativa de Modelos de Embeddings
 
@@ -276,7 +266,7 @@ Se realizaron pruebas A/B variando el tamaño de fragmentación del texto (Chunk
 | `db_800` (Base) | 76.9% | 0.73 | **0.335s** | Muy rápido, pero precisión mejorable. |
 | `db_800` (+Reranker) | 84.6% | 0.77 | 5.083s | Mejora notable en recuperación. |
 | `db_1000` (Base) | 76.9% | 0.68 | **0.328s** | Similar al base de 800 tokens. |
-| **`db_1000` (+Reranker)** | **84.6%** | **0.78** | 5.861s | **Configuración Óptima.** Máxima precisión semántica (MRR), aceptando un *trade-off* en latencia. |
+| **`db_1000` (+Reranker)** | **84.6%** | **0.78** | 5.861s | **Configuración Óptima.** Máxima precisión semántica (MRR), aceptando una mayor latencia. |
 
 **Conclusión Técnica:** La incorporación del **Cross-Encoder (Reranker)** es fundamental. Aunque introduce una latencia de \~5 segundos, eleva la precisión del sistema del 76% al **84.6%**, lo cual es crítico para evitar alucinaciones en respuestas técnicas.
 
@@ -284,7 +274,7 @@ Se realizaron pruebas A/B variando el tamaño de fragmentación del texto (Chunk
 
 ### 6.3. Calidad Semántica (Framework RAGAS)
 
-Para evaluar la respuesta final generada por el LLM, se utilizó el framework [RAGAS](https://docs.ragas.io/), que utiliza un "Juez IA" (GPT-4 / Llama-3) para puntuar la calidad.
+Para evaluar la respuesta final generada por el LLM, se utilizó el framework RAGAS, que utiliza un "Juez IA" (GPT-4 / Llama-3) para puntuar la calidad.
 
 | Métrica | Puntuación (0-1) | Interpretación |
 | :---- | :---: | :---- |
@@ -330,12 +320,12 @@ Para garantizar la idoneidad académica, se han implementado estrictos *Guardrai
 
 ## 8\. Autores y Licencia
 
-Este proyecto ha sido desarrollado como parte del Trabajo de Fin de Máster / Especialización en Inteligencia Artificial y Big Data.
+Este proyecto ha sido desarrollado como parte del RETO 2 de la Especialización en Inteligencia Artificial y Big Data.
 
 ### 👥 Autores
 
-4. **Zuriñe Colino** \- *Ingeniera de Datos & IA*  
-5. **Aritz Monje** \- *Ingeniero de Datos & IA*
+4. **Zuriñe Colino** \- *Analista de Datos & IA*  
+5. **Aritz Monje** \- *Analista de Datos & IA*
 
 ### 📄 Licencia
 
