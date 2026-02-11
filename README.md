@@ -191,7 +191,8 @@ Sigue estos pasos para desplegar el entorno de desarrollo local y ejecutar el as
      
    pip install \-r requirements.txt  
      
-4. **Variables de Entorno (.env):** Crea un archivo `.env` en la raíz del proyecto y configura tus claves API. Es fundamental para el acceso a los modelos LLM.  
+4. **Variables de Entorno (.env):** Crea un archivo `.env` en la raíz del proyecto y configura tus claves API. Es fundamental para el acceso a los modelos LLM.
+```text
    \# Configuración del LLM (Groq / OpenRouter / OpenAI)  
         LLM\_PROVIDER="groq"  
         GROQ\_API\_KEY="gsk\_..."  
@@ -202,6 +203,7 @@ Sigue estos pasos para desplegar el entorno de desarrollo local y ejecutar el as
         DATA\_PATH\_IMAGENES="./data/imagenes"  
         DATA\_PATH\_PDFS="./data/pdfs"  
         DB\_PATH="./chroma\_db\_multimodal"
+```
 
 ### 5.3. Ejecución del Sistema
 
