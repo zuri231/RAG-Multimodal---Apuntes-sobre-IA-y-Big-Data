@@ -122,6 +122,7 @@ Se han seleccionado modelos específicos tras realizar benchmarks de rendimiento
 
 El proyecto sigue una estructura modular rigurosa, separando claramente la lógica de ingestión de datos (ETL), el backend de inferencia, la interfaz de usuario y los módulos de validación científica.
 
+```text
 RAG_MULTIMODAL/
 ├── chroma_db_multimodal/      # Base de Datos Vectorial (Persistencia)
 ├── data/
@@ -149,7 +150,7 @@ RAG_MULTIMODAL/
 │   ├── 08_ragas.py             # Eval Semántica RAGAS
 │   └── 09_evaluar_metricas.py  # Benchmark Arquitectura
 │
-├── .env                        # Claves API (No subir a git)
+├── .env                        # Claves API
 ├── requirements.txt            # Dependencias
 └── README.md                   # Documentación
 
