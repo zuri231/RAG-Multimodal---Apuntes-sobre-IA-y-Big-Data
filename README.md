@@ -124,7 +124,7 @@ Se han seleccionado modelos específicos tras realizar benchmarks de rendimiento
 
 El proyecto sigue una estructura modular rigurosa, separando claramente la lógica de ingestión de datos (ETL), el backend de inferencia, la interfaz de usuario y los módulos de validación científica.
 
-```text
+```ini
 RAG_MULTIMODAL/
 ├── chroma_db_multimodal/      # Base de Datos Vectorial (Persistencia)
 ├── data/
