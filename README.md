@@ -193,11 +193,11 @@ Sigue estos pasos para desplegar el entorno de desarrollo local y ejecutar el as
      
 4. **Variables de Entorno (.env):** Crea un archivo `.env` en la raíz del proyecto y configura tus claves API. Es fundamental para el acceso a los modelos LLM.
 ```text
-   \# Configuración del LLM (Groq / OpenRouter / OpenAI)  
+   # Configuración del LLM (Groq / OpenRouter / OpenAI)  
         LLM\_PROVIDER="groq"  
         GROQ\_API\_KEY="gsk\_..."  
         OPENROUTER\_API\_KEY="sk-or-..."  
-   \# Configuración de Rutas y Red  
+   # Configuración de Rutas y Red  
         API\_HOST="127.0.0.1"  
         API\_PORT="8000"  
         DATA\_PATH\_IMAGENES="./data/imagenes"  
