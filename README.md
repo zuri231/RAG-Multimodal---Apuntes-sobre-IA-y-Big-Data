@@ -316,7 +316,7 @@ El sistema implementa dos arquetipos de asistente distintos, seleccionables desd
 
 | Característica | 👨‍💻 Modo ArIA (Técnico) | 👩‍🏫 Modo LexIA (Docente) |
 | :---- | :---- | :---- |
-| **Rol** | Ingeniero de Sistemas Senior. | Catedrática Universitaria. |
+| **Rol** | Ingeniero de Sistemas Senior. | Tutora de IA y Big Data. |
 | **Objetivo** | Eficiencia y precisión técnica. | Pedagogía y comprensión profunda. |
 | **Estilo de Respuesta** | Conciso, uso intensivo de *bullet points*, bloques de código y terminología experta. | Explicativo, uso de analogías, tono amable y estructuración didáctica. |
 | **Interfaz (UI)** | Tema "Hacker/Terminal" (Fuente Monospace, Acentos Azul Neón). | Tema "Académico/Paper" (Fuente Serif, Acentos Violeta/Lavanda). |
