@@ -28,7 +28,7 @@ En asignaturas técnicas como *Big Data* o *Inteligencia Artificial*, el materia
 * **Soporte Multimodal Real:** Utilizar modelos de visión (VLM) para generar descripciones ricas de imágenes educativas, permitiendo su recuperación mediante consultas textuales.  
 * **Adaptabilidad de Interfaz:** Proveer una experiencia de usuario diferenciada mediante dos arquetipos de asistente:  
   * *Perfil Técnico (ArIA):* Respuestas concisas, código y logs.  
-  * *Perfil Docente (LexIA):* Explicaciones pedagógicas y didácticas.  
+  * *Perfil Formativo (LexIA):* Explicaciones detalladas y ejemplos prácticos. 
 * **Evaluación:** Medir el rendimiento del sistema mediante métricas objetivas (Hit Rate, MRR, RAGAS) para validar la elección de modelos de embeddings.  
   ---
 
