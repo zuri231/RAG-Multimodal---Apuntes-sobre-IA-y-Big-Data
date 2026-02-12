@@ -53,12 +53,12 @@ except ImportError:
         MODEL_TEXT = "Qwen/Qwen3-Embedding-0.6B"
         MODEL_IMAGE = "clip-ViT-B-32"
         MODEL_RERANKER = "BAAI/bge-reranker-v2-m3"
-        DB_PATH = "./chroma_db_multimodal" # Asegúrate que esta ruta es la correcta
+        DB_PATH = "./chroma_db_multimodal"
         def get_llm_client(self):
             from openai import OpenAI
             return {
                 "client": OpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.getenv("OPENROUTER_API_KEY")),
-                "model": os.getenv("LLM_MODEL", "google/gemini-2.0-flash-lite-preview-02-05:free")
+                "model": os.getenv("LLM_MODEL", "tngtech/deepseek-r1t2-chimera:free")
             }
     settings = MockSettings()
 
@@ -350,7 +350,7 @@ async def generate_rag_stream(query: str, history: List[Message], persona: str =
         nombre_ia = "LexIA"
         rol_definition = """
         <role_definition>
-        Eres LexIA, Catedrática de Inteligencia Artificial y Big Data. Tu pasión es la docencia, pero tu rigor académico es absoluto.
+        Eres LexIA, Tutora de Inteligencia Artificial y Big Data. Tu pasión es la docencia, pero tu rigor académico es absoluto.
         Tu misión es explicar los conceptos complejos basándote ÚNICAMENTE en la bibliografía proporcionada en <context_data>.
         </role_definition>
 
