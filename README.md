@@ -156,12 +156,12 @@ RAG_MULTIMODAL/
 ├── requirements.txt            # Dependencias
 └── README.md                   # Documentación
 ```
-### **4.1. Descripción de Módulos Clave**
+### **4.1. Descripción de Scripts Clave**
 
 * **`src/api/api.py` (Backend):** Es el orquestador del sistema. Recibe la consulta del usuario, ejecuta la reescritura de la pregunta, lanza la búsqueda híbrida en ChromaDB y BM25, aplica el reranking con Cross-Encoders y gestiona el streaming de la respuesta generada por el LLM.  
 * **`src/app/app.py` (Frontend):** Gestiona la experiencia de usuario. Controla la sesión, el historial de chat, la visualización de imágenes recuperadas y la lógica de personalidades (ArIA/LexIA) mediante inyección de CSS dinámico.  
 * **`src/01_multimodal_ingest_smart.py`:** Componente crítico de la multimodalidad. Utiliza un modelo de visión local para "ver" y describir textualmente cada imagen del dataset antes de vectorizarla. Esto permite que las imágenes sean recuperables mediante búsquedas semánticas de texto.  
-* **`src/02_ingest_pdfs.py`:** Motor de ingestión de documentos. Se encarga de extraer, limpiar y fragmentar (chunking) el contenido de los apuntes en PDF. Posteriormente, vectoriza estos fragmentos y los almacena en ChromaDB, constituyendo el núcleo de conocimiento textual del sistema.
+* **`src/02_ingest_pdfs.py`:** Motor de ingesta de documentos. Se encarga de extraer, limpiar y fragmentar (chunking) el contenido de los apuntes en PDF. Posteriormente, vectoriza estos fragmentos y los almacena en ChromaDB, constituyendo el núcleo de conocimiento textual del sistema.
 
 ## 5\. Instalación y Uso
 
