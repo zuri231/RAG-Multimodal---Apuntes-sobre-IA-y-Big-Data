@@ -44,7 +44,7 @@ class Config:
             print("Usando proveedor: OPENROUTER")
             return {
                 "client": OpenAI(base_url="https://openrouter.ai/api/v1", api_key=api_key),
-                "model": os.getenv("LLM_MODEL_OPENROUTER", "google/gemini-2.0-flash-lite-preview-02-05:free"),
+                "model": os.getenv("LLM_MODEL_OPENROUTER", "tngtech/deepseek-r1t2-chimera:free"),
                 "type": "openai"
             }
 
